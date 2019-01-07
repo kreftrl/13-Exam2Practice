@@ -113,7 +113,7 @@ class Box(object):
             self.volume=volume
             self.origcontents = ""
             self.origvolume = volume
-        self.history=""
+        self.history=[]
 
     def append_string(self, additional_contents):
         """
@@ -412,7 +412,7 @@ class Box(object):
         #    TIME ESTIMATE:   5 minutes.
         # ---------------------------------------------------------------------
 
-        self.history=self.history+self.contents
+        self.history=self.history+[self.contents]
         self.volume=self.origvolume
         self.contents=self.origcontents
 
@@ -482,7 +482,7 @@ class Box(object):
           #   h is now ['GoodGo', 'GoodBye']
         """
         # ---------------------------------------------------------------------
-        # TODO: 9. Implement and test this function.
+        # DONE: 9. Implement and test this function.
         #     The testing code is already written for you (above).
         # ---------------------------------------------------------------------
         # ---------------------------------------------------------------------
@@ -491,7 +491,6 @@ class Box(object):
         #    TIME ESTIMATE:   5 minutes.
         # ---------------------------------------------------------------------
 
-        self.history=self.history
         return self.history
 
     def combined_box(self, other_box):

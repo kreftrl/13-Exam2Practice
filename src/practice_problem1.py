@@ -46,8 +46,8 @@ def main():
     #run_test_shrink()
     #run_test_double_then_shrink()
     #run_test_reset()
-    run_test_steal()
-    # run_test_get_history()
+    #run_test_steal()
+    run_test_get_history()
     # run_test_combined_box()
 
 
@@ -113,6 +113,7 @@ class Box(object):
             self.volume=volume
             self.origcontents = ""
             self.origvolume = volume
+        self.history="[",{},"]"
 
     def append_string(self, additional_contents):
         """
@@ -169,16 +170,50 @@ class Box(object):
         #    and complete your work on the problem.
         # ---------------------------------------------------------------------
 
-        space=self.volume-len(self.contents)
-        number_of_characters_to_append=min(space,len(additional_contents))
+        # space=self.volume-len(self.contents)
+        # number_of_characters_to_append=min(space,len(additional_contents))
+        # stuff_to_add = ''
+        # for k in range(number_of_characters_to_append):
+        #     stuff_to_add = stuff_to_add + additional_contents[k]
+        # self.contents = self.contents + stuff_to_add
+        # stuff_to_return = ''
+        # for k in range(number_of_characters_to_append,
+        #     len(additional_contents)):
+        #     stuff_to_return = stuff_to_return + additional_contents[k]
+        # return stuff_to_return
+
+        space = self.volume - len(self.contents)
+        number_of_characters_to_append = min(space,
+                                             len(additional_contents))
+
+        # ---------------------------------------------------------------------
+        # Build up a string that is the characters to append
+        # (that is, those that will fit into this Box).
+        # Then append that string to this Box's contents:
+        # ---------------------------------------------------------------------
+
         stuff_to_add = ''
         for k in range(number_of_characters_to_append):
             stuff_to_add = stuff_to_add + additional_contents[k]
         self.contents = self.contents + stuff_to_add
+
+        # ---------------------------------------------------------------------
+        # Build up a string that is the characters that were NOT
+        # appended, by starting at the place where the previous loop
+        # left off and continuing to the end of the additional_contents.
+        # This will be a loop that goes NO times if the entire
+        # additional_contents fits into this Box's contents:
+        # ---------------------------------------------------------------------
+
         stuff_to_return = ''
         for k in range(number_of_characters_to_append,
-            len(additional_contents)):
+                       len(additional_contents)):
             stuff_to_return = stuff_to_return + additional_contents[k]
+
+        # ---------------------------------------------------------------------
+        # Return the result from the previous loop:
+        # ---------------------------------------------------------------------
+
         return stuff_to_return
 
     def double(self):
@@ -377,8 +412,10 @@ class Box(object):
         #    TIME ESTIMATE:   5 minutes.
         # ---------------------------------------------------------------------
 
+        self.history=self.history+self.contents
         self.volume=self.origvolume
         self.contents=self.origcontents
+
 
     def steal(self, other_box):
         """
@@ -399,7 +436,7 @@ class Box(object):
           :type other_box: Box
         """
         # ---------------------------------------------------------------------
-        # TODO: 8. Implement and test this function.
+        # DONE: 8. Implement and test this function.
         #     The testing code is already written for you (above).
         # ---------------------------------------------------------------------
         # ---------------------------------------------------------------------
@@ -413,7 +450,7 @@ class Box(object):
         #######################################################################
 
         y=self.append_string(other_box.contents)
-        return y
+        other_box.contents=y
 
     def get_history(self):
         """
@@ -453,6 +490,8 @@ class Box(object):
         #    DIFFICULTY:      6
         #    TIME ESTIMATE:   5 minutes.
         # ---------------------------------------------------------------------
+
+        return self.history
 
     def combined_box(self, other_box):
         """

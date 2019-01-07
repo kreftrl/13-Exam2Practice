@@ -48,7 +48,7 @@ def main():
     #run_test_reset()
     #run_test_steal()
     run_test_get_history()
-    # run_test_combined_box()
+    run_test_combined_box()
 
 
 ###############################################################################
@@ -113,7 +113,7 @@ class Box(object):
             self.volume=volume
             self.origcontents = ""
             self.origvolume = volume
-        self.history="[",{},"]"
+        self.history=""
 
     def append_string(self, additional_contents):
         """
@@ -491,6 +491,7 @@ class Box(object):
         #    TIME ESTIMATE:   5 minutes.
         # ---------------------------------------------------------------------
 
+        self.history=self.history
         return self.history
 
     def combined_box(self, other_box):
@@ -520,6 +521,7 @@ class Box(object):
         #    TIME ESTIMATE:   5 minutes.
         # ---------------------------------------------------------------------
 
+        return Box(self.contents+other_box.contents,self.volume+other_box.volume)
 
 ###############################################################################
 # The TEST functions for the  Box  class begin here.
